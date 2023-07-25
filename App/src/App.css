@@ -1,0 +1,98 @@
+:root {
+  /* FONTS */
+  /* System Font Stack */
+  --font-system--base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans",
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-system--mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Custom Fonts */
+  --font-custom--base: "Red Hat Text Variable";
+  --font-custom--head: "Red Hat Display Variable";
+  --font-custom--mono: "Red Hat Mono Variable";
+
+  --line-height: 1.25;
+
+  --corner-none: 0;
+  --corner-2xs: 0.25rem;
+  --corner-xs: 0.5rem;
+  --corner-sm: 0.75rem;
+  --corner-md: 1rem;
+  --corner-lg: 1.25rem;
+  --corner-xl: 1.5rem;
+  --corner-2xl: 1.75rem;
+
+  --transition-none: 0.001ms;
+  --transition-2xs: 64ms;
+  --transition-xs: 128ms;
+  --transition-sm: 256ms;
+  --transition-md: 512ms;
+  --transition-lg: 768ms;
+  --transition-xl: 1024ms;
+  --transition-2xl: 1280ms;
+
+  --in-duration: var(--transition-lg);
+  --in-delay: var(--transition-none);
+  --in-function: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --out-duration: var(--transition-md);
+  --out-delay: var(--transition-none);
+  --out-function: cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+:is(*, *::before, *::after):not(html, body, head, style, script) {
+  box-sizing: border-box;
+}
+
+:where(html, body, #root) {
+  min-block-size: 100vh;
+  max-inline-size: 100vw;
+}
+
+html {
+  display: grid;
+}
+
+body {
+  font-size: 1rem;
+  font-family: var(--font-custom--base), var(--font-system--base);
+  line-height: 1.375;
+  margin: unset;
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+:where(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+  font-family: var(--font-custom--head), var(--font-system--base);
+}
+:where(h1, .h1) {
+  font-size: var(--type-scale-1, 1.802em);
+}
+:where(h2, .h2) {
+  font-size: var(--type-scale-2, 1.602em);
+}
+:where(h3, .h3) {
+  font-size: var(--type-scale-3, 1.424em);
+}
+:where(h4, .h4) {
+  font-size: var(--type-scale-4, 1.266em);
+}
+:where(h5, .h5) {
+  font-size: var(--type-scale-5, 1.125em);
+}
+:where(h6, .h6) {
+  font-size: var(--type-scale-6, 1em);
+}
+:where(small, .small) {
+  font-size: var(--type-scale-small, 0.889em);
+}
+
+._flush > *:first-child {
+  margin-block-start: unset;
+}
+._flush > *:last-child {
+  margin-block-end: unset;
+}

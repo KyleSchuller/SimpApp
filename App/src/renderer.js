@@ -26,8 +26,8 @@
  * ```
  */
 
-import "./index.css";
-import "./app.jsx";
+import "./App.css";
+import "./App.jsx";
 
 // Supports weights 300-900
 import "@fontsource-variable/red-hat-display";
