@@ -1,4 +1,6 @@
 :root {
+  --body-color: #0c0a09;
+  --body-contrast: #fafaf9;
   /* FONTS */
   /* System Font Stack */
   --font-system--base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans",
@@ -9,7 +11,21 @@
   --font-custom--head: "Red Hat Display Variable";
   --font-custom--mono: "Red Hat Mono Variable";
 
-  --line-height: 1.25;
+  /*
+  1.067 – Minor Second
+  1.125 – Major Second
+  1.200 – Minor Third
+  1.250 – Major Third
+  1.333 – Perfect Fourth
+  1.414 – Augmented Fourth
+  1.500 – Perfect Fifth
+  1.618 – Golden Ratio
+  */
+  --type-scale: 1.2;
+  --font-size: 1rem;
+
+  --line-height--base: 1.375;
+  --line-height--head: 1.125;
 
   --corner-none: 0;
   --corner-2xs: 0.25rem;
@@ -42,7 +58,7 @@
   box-sizing: border-box;
 }
 
-:where(html, body, #root) {
+:is(html, body, #root) {
   min-block-size: 100vh;
   max-inline-size: 100vw;
 }
@@ -52,11 +68,16 @@ html {
 }
 
 body {
-  font-size: 1rem;
+  font-size: var(--font-size);
   font-family: var(--font-custom--base), var(--font-system--base);
-  line-height: 1.375;
+  line-height: var(--line-height-base);
   margin: unset;
   -webkit-text-size-adjust: 100%;
+}
+
+img {
+  max-inline-size: 100%;
+  max-block-size: 100%;
 }
 
 #root {
@@ -65,29 +86,73 @@ body {
   grid-template-rows: auto 1fr auto;
 }
 
-:where(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+:is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
   font-family: var(--font-custom--head), var(--font-system--base);
+  font-weight: bolder;
+  line-height: var(--line-height--head);
+  margin-block-start: unset;
+  margin-block-end: 0.5rem;
 }
-:where(h1, .h1) {
-  font-size: var(--type-scale-1, 1.802em);
+:is(h1, .h1) {
+  font-size: calc(
+    var(--font-size) * var(--type-scale) * var(--type-scale) * var(--type-scale) * var(--type-scale) * var(--type-scale)
+  );
 }
-:where(h2, .h2) {
-  font-size: var(--type-scale-2, 1.602em);
+:is(h2, .h2) {
+  font-size: calc(var(--font-size) * var(--type-scale) * var(--type-scale) * var(--type-scale) * var(--type-scale));
 }
-:where(h3, .h3) {
-  font-size: var(--type-scale-3, 1.424em);
+:is(h3, .h3) {
+  font-size: calc(var(--font-size) * var(--type-scale) * var(--type-scale) * var(--type-scale));
 }
-:where(h4, .h4) {
-  font-size: var(--type-scale-4, 1.266em);
+:is(h4, .h4) {
+  font-size: calc(var(--font-size) * var(--type-scale) * var(--type-scale));
 }
-:where(h5, .h5) {
-  font-size: var(--type-scale-5, 1.125em);
+:is(h5, .h5) {
+  font-size: calc(var(--font-size) * var(--type-scale));
 }
-:where(h6, .h6) {
-  font-size: var(--type-scale-6, 1em);
+:is(h6, .h6) {
+  font-size: var(--font-size);
 }
-:where(small, .small) {
-  font-size: var(--type-scale-small, 0.889em);
+:is(small, .small) {
+  font-size: calc(var(--font-size) / var(--type-scale));
+}
+:is(
+    p,
+    a,
+    span,
+    li,
+    dd,
+    dt,
+    blockquote,
+    pre,
+    cite,
+    abbr,
+    address,
+    time,
+    figcaption,
+    mark,
+    b,
+    strong,
+    i,
+    em,
+    u,
+    ins,
+    del,
+    s,
+    small,
+    sub,
+    sup,
+    code,
+    var,
+    samp,
+    kbd,
+    button,
+    label,
+    legend,
+    output
+  ) {
+  font-size: var(--font-size);
+  margin-block: unset;
 }
 
 ._flush > *:first-child {

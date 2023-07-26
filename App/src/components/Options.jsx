@@ -6,8 +6,10 @@ function Options() {
   return (
     <section>
       <Container>
-        <h2>Game Options</h2>
-        {/* Here we will add the functionalities to handle game Options */}
+        <h1>Game Options</h1>
+        <p>
+          Lots of sliders and things to come here. Interacting with the sliders will change values in various files.
+        </p>
       </Container>
     </section>
   );
