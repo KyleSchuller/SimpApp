@@ -10,6 +10,8 @@ import Container from "./_Container.jsx";
 const DirectoryWrapper = styled.div`
   border-radius: var(--corner-xs);
   contain: paint;
+  margin-block-end: calc(var(--corner-sm) * -1);
+  margin-inline: calc(var(--corner-sm) * -1);
 
   & > *:last-child {
     margin-block-end: unset;
@@ -19,13 +21,12 @@ const Directory = styled.output`
   background-color: var(--background);
   color: white;
   display: flex;
-  gap: 0.5em;
+  gap: 0.25em;
   margin-block-end: 1px;
   padding: var(--corner-sm);
 `;
 
 const FilePath = styled.div`
-  width: 100%; /* Take up the rest of the flex-container */
   direction: rtl;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -38,6 +39,17 @@ const Truncate = styled.span`
 `;
 
 function FileStatus({ directoryStatus }) {
+  const selectDirectory = async (directory) => {
+    const newPath = await window.electron.selectDirectory();
+    if (newPath) {
+      // Update the directory status with the new path
+      setDirectoryStatus((prevStatus) => ({
+        ...prevStatus,
+        [directory]: { path: newPath, status: "checking" },
+      }));
+    }
+  };
+
   return (
     <section>
       <Container>
@@ -68,6 +80,13 @@ function FileStatus({ directoryStatus }) {
                 <FilePath>
                   <Truncate>{directory}</Truncate>
                 </FilePath>
+
+                {status !== "found" && (
+                  <button onClick={() => selectDirectory(directory)}>
+                    Find
+                    <FontAwesomeIcon icon={icon({ name: "search", style: "regular" })} size='sm' />
+                  </button>
+                )}
               </Directory>
             ))}
           </DirectoryWrapper>
