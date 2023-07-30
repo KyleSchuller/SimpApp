@@ -47,10 +47,10 @@ function FileStatus({ directoryStatus }) {
             {Object.entries(directoryStatus).map(([directory, { path, status }]) => (
               <Directory
                 key={directory}
-                style={{ "--background": status !== "found" ? "var(--green-600)" : "var(--red-600)" }}>
+                style={{ "--background": status === "found" ? "var(--green-600)" : "var(--red-600)" }}>
                 <span className='fa-layers fa-fw fa-lg' style={{ marginTop: ".125em" }}>
                   <FontAwesomeIcon icon={icon({ name: "folder", style: "solid" })} />
-                  {status !== "found" ? (
+                  {status === "found" ? (
                     <FontAwesomeIcon
                       icon={icon({ name: "check", style: "solid" })}
                       style={{ color: "var(--background)" }}
