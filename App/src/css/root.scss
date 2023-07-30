@@ -1,0 +1,108 @@
+@function tint($color, $percentage) {
+  $lightness: lightness($color) + ($percentage * 1%);
+  $lightness: if($lightness > 100%, 100%, $lightness);
+  @return adjust-color($color, $lightness: $lightness);
+}
+
+@function shade($color, $percentage) {
+  $lightness: lightness($color) - ($percentage * 1%);
+  $lightness: if($lightness < 0%, 0%, $lightness);
+  @return adjust-color($color, $lightness: $lightness);
+}
+
+$colors: (
+  "slate": #66738b,
+  "gray": #6c7280,
+  "zinc": #72717a,
+  "neutral": #737373,
+  "stone": #78716c,
+  "red": #f1404b,
+  "orange": #fd6f1f,
+  "amber": #f99c13,
+  "yellow": #eeb10c,
+  "lime": #86cc13,
+  "green": #21c55e,
+  "emerald": #07b982,
+  "teal": #0bb8a8,
+  "cyan": #0eb6d6,
+  "sky": #2ba4ea,
+  "blue": #587ef3,
+  "indigo": #7b60eb,
+  "violet": #a053ed,
+  "purple": #bb4aec,
+  "fuchsia": #e937e1,
+  "pink": #f0468b,
+  "rose": #f53c66,
+);
+
+:root {
+  // COLORS
+  @each $color-name, $color-value in $colors {
+    --#{$color-name}-50: #{lighten($color-value, 50%)};
+    --#{$color-name}-100: #{lighten($color-value, 40%)};
+    --#{$color-name}-200: #{lighten($color-value, 30%)};
+    --#{$color-name}-300: #{lighten($color-value, 20%)};
+    --#{$color-name}-400: #{lighten($color-value, 10%)};
+    --#{$color-name}-500: #{$color-value};
+    --#{$color-name}-600: #{darken($color-value, 10%)};
+    --#{$color-name}-700: #{darken($color-value, 20%)};
+    --#{$color-name}-800: #{darken($color-value, 30%)};
+    --#{$color-name}-900: #{darken($color-value, 40%)};
+    --#{$color-name}-950: #{darken($color-value, 50%)};
+  }
+
+  --body-color: var(--stone-950);
+  --body-contrast: var(--stone-50);
+  /* FONTS */
+  /* System Font Stack */
+  --font-system--base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans",
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-system--mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Custom Fonts */
+  --font-custom--base: "Red Hat Text Variable";
+  --font-custom--head: "Red Hat Display Variable";
+  --font-custom--mono: "Red Hat Mono Variable";
+
+  /*
+  1.067 – Minor Second
+  1.125 – Major Second
+  1.200 – Minor Third
+  1.250 – Major Third
+  1.333 – Perfect Fourth
+  1.414 – Augmented Fourth
+  1.500 – Perfect Fifth
+  1.618 – Golden Ratio
+  */
+  --type-scale: 1.125;
+  --font-size: clamp(1rem, 0.913rem + 0.24vw, 1.125rem);
+  --font-size--base: 16px;
+
+  --line-height--base: 1.375;
+  --line-height--head: 1.125;
+
+  --corner-none: 0;
+  --corner-2xs: 0.25rem;
+  --corner-xs: 0.5rem;
+  --corner-sm: 0.75rem;
+  --corner-md: 1rem;
+  --corner-lg: 1.25rem;
+  --corner-xl: 1.5rem;
+  --corner-2xl: 1.75rem;
+
+  --transition-none: 0.001ms;
+  --transition-2xs: 64ms;
+  --transition-xs: 128ms;
+  --transition-sm: 256ms;
+  --transition-md: 512ms;
+  --transition-lg: 768ms;
+  --transition-xl: 1024ms;
+  --transition-2xl: 1280ms;
+
+  --in-duration: var(--transition-lg);
+  --in-delay: var(--transition-none);
+  --in-function: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --out-duration: var(--transition-md);
+  --out-delay: var(--transition-none);
+  --out-function: cubic-bezier(0.5, 0, 0.75, 0);
+}

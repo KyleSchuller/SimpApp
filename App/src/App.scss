@@ -1,0 +1,11 @@
+@use "./css/root";
+@use "./css/reset";
+@use "./css/utils";
+
+@use "./css/_button";
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+}

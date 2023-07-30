@@ -1,0 +1,7 @@
+:where(.btn, button, [role="button"], [type="button"], [type="submit"], [type="reset"]) {
+  border: 1px solid currentColor;
+  border-radius: var(--corner-2xs);
+  line-height: 1;
+  padding-block: calc(((var(--line-height--base) - 1) / 2) * 1em);
+  padding-inline: 0.75em;
+}

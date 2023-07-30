@@ -32,7 +32,7 @@ function Logo() {
           icon={icon({ name: "face-glasses", style: "duotone" })}
           style={{
             "--fa-primary-color": "var(--body-color)",
-            "--fa-secondary-color": "#eab308",
+            "--fa-secondary-color": "var(--yellow-500)",
             "--fa-secondary-opacity": "1",
           }}
         />

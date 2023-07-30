@@ -1,0 +1,181 @@
+/*
+    GPT-4 CSS Reset - version 1.1 (last updated 30.7.2023)
+    This reset aims to provide a consistent baseline across all modern browsers.
+*/
+
+/* Box sizing rules */
+/* Apply 'border-box' for all elements, except for html, body, head, style, and script */
+:where(*, *::before, *::after):not(html, body, head, style, script) {
+  box-sizing: border-box;
+}
+
+/* Set full height for html, body, and #root */
+/* This ensures that these elements take up the full viewport height */
+:where(html, body),
+:is(#root) {
+  min-block-size: 100vh;
+  max-inline-size: 100vw;
+}
+
+/* Set grid display for html */
+/* Easy placement of header, body and footer */
+html {
+  display: grid;
+  font-size: var(--font-size--base);
+}
+
+/* Set base font size, family, and line height for body */
+/* This sets the base typography for the body element */
+body {
+  font-size: var(--font-size);
+  font-family: var(--font-custom--base), var(--font-system--mono);
+  line-height: var(--line-height-base);
+  margin: unset;
+  -webkit-text-size-adjust: 100%; /* Prevents text size adjustments in mobile browsers */
+}
+
+/* Set image sizes */
+/* This ensures that images do not exceed their container's size */
+img {
+  max-inline-size: 100%;
+  max-block-size: 100%;
+}
+
+/* Set font family for code-like elements */
+/* This sets a monospace font for elements that typically display code */
+:is(code, .code, kbd, .kbd, samp, .samp, pre, .pre, .monospace) {
+  font-family: var(--font-custom--mono), var(--font-system--base);
+}
+
+/* Set font family, weight, and line height for heading elements */
+/* This sets the typography for heading elements */
+:is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+  font-family: var(--font-custom--head), var(--font-system--base);
+  font-weight: bolder;
+  line-height: var(--line-height--head);
+  margin-block: unset;
+}
+:is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6):not(:last-child) {
+  margin-block-end: 0.5rem;
+}
+
+/* Set font size for heading elements */
+/* This ensures that these elements use the type scale */
+:is(h1, .h1) {
+  font-size: calc(
+    var(--font-size) * var(--type-scale) * var(--type-scale) * var(--type-scale) * var(--type-scale) * var(--type-scale)
+  );
+}
+:is(h2, .h2) {
+  font-size: calc(var(--font-size) * var(--type-scale) * var(--type-scale) * var(--type-scale) * var(--type-scale));
+}
+:is(h3, .h3) {
+  font-size: calc(var(--font-size) * var(--type-scale) * var(--type-scale) * var(--type-scale));
+}
+:is(h4, .h4) {
+  font-size: calc(var(--font-size) * var(--type-scale) * var(--type-scale));
+}
+:is(h5, .h5) {
+  font-size: calc(var(--font-size) * var(--type-scale));
+}
+:is(h6, .h6) {
+  font-size: var(--font-size);
+}
+:is(small, .small) {
+  font-size: calc(var(--font-size) / var(--type-scale));
+}
+
+/* Set font size for other common elements */
+/* This ensures that these elements use the base font size */
+:is(
+    p,
+    a,
+    span,
+    li,
+    dd,
+    dt,
+    blockquote,
+    pre,
+    cite,
+    abbr,
+    address,
+    time,
+    figcaption,
+    mark,
+    b,
+    strong,
+    i,
+    em,
+    u,
+    ins,
+    del,
+    s,
+    small,
+    sub,
+    sup,
+    code,
+    var,
+    samp,
+    kbd,
+    button,
+    label,
+    legend,
+    output
+  ) {
+  font-size: var(--font-size);
+  margin-block: unset;
+}
+
+:is(p):not(:last-child) {
+  margin-block-end: 1em;
+}
+
+/* Reset all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+/* This rule resets the styles of all elements, except for a few that need to maintain their default display value */
+*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+/* Reapply the pointer cursor for interactive elements */
+/* This rule ensures that interactive elements display a pointer cursor */
+:where(
+    button,
+    [role="button"],
+    [type="button"],
+    [type="submit"],
+    [type="reset"],
+    label,
+    select,
+    a,
+    input[type="checkbox"],
+    input[type="radio"],
+    input[type="file"]
+  ) {
+  cursor: pointer;
+}
+
+/* Make sure that hidden elements stay hidden */
+/* This rule ensures that elements with the 'hidden' attribute are not displayed */
+[hidden] {
+  display: none !important;
+}
+
+/* Reset table styles */
+/* This rule ensures that tables have consistent styles across browsers */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid var(--gray-500);
+  padding: 0.5em;
+}
+
+/* Apply focus styles for keyboard-only users */
+/* This rule ensures that focused elements have a clear visual indicator */
+*:focus-visible {
+  outline: 2px solid var(--blue-500);
+}
