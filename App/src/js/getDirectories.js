@@ -21,7 +21,7 @@ const METHOD = {
 
 function getDirectories(home, documents, operatingSystem) {
   return {
-    EA_APP: [
+    Sims4: [
       path.join(home, METHOD.EA[operatingSystem]),
       path.join(home, METHOD.ORIGIN[operatingSystem]),
       path.join(home, METHOD.STEAM[operatingSystem]),
@@ -31,4 +31,40 @@ function getDirectories(home, documents, operatingSystem) {
   };
 }
 
-export default getDirectories;
+function getFiles(home, documents, operatingSystem) {
+  return {
+    GraphicsRules: [
+      path.join(home, METHOD.EA[operatingSystem], "Resources", "GraphicsRules.sgr"),
+      path.join(home, METHOD.ORIGIN[operatingSystem], "Resources", "GraphicsRules.sgr"),
+      path.join(home, METHOD.STEAM[operatingSystem], "Resources", "GraphicsRules.sgr"),
+      path.join(home, METHOD.CD[operatingSystem], "Resources", "GraphicsRules.sgr"),
+    ],
+    Ts4CommonRules: [
+      path.join(home, METHOD.EA[operatingSystem], "Resources", "Ts4CommonRules.sgr"),
+      path.join(home, METHOD.ORIGIN[operatingSystem], "Resources", "Ts4CommonRules.sgr"),
+      path.join(home, METHOD.STEAM[operatingSystem], "Resources", "Ts4CommonRules.sgr"),
+      path.join(home, METHOD.CD[operatingSystem], "Resources", "Ts4CommonRules.sgr"),
+    ],
+    DefaultINI: [
+      path.join(home, METHOD.EA[operatingSystem], "Resources", "Default.ini"),
+      path.join(home, METHOD.ORIGIN[operatingSystem], "Resources", "Default.ini"),
+      path.join(home, METHOD.STEAM[operatingSystem], "Resources", "Default.ini"),
+      path.join(home, METHOD.CD[operatingSystem], "Resources", "Default.ini"),
+    ],
+    CameraINI: [
+      path.join(home, METHOD.EA[operatingSystem], "res", "Camera.ini"),
+      path.join(home, METHOD.ORIGIN[operatingSystem], "res", "Camera.ini"),
+      path.join(home, METHOD.STEAM[operatingSystem], "res", "Camera.ini"),
+      path.join(home, METHOD.CD[operatingSystem], "res", "Camera.ini"),
+    ],
+    VideoCameraINI: [
+      path.join(home, METHOD.EA[operatingSystem], "res", "VideoCamera.ini"),
+      path.join(home, METHOD.ORIGIN[operatingSystem], "res", "VideoCamera.ini"),
+      path.join(home, METHOD.STEAM[operatingSystem], "res", "VideoCamera.ini"),
+      path.join(home, METHOD.CD[operatingSystem], "res", "VideoCamera.ini"),
+    ],
+    OptionsINI: [path.join(documents, "Electronic Arts", "The Sims 4", "Options.ini")],
+  };
+}
+
+export { getDirectories, getFiles };

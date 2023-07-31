@@ -8,7 +8,7 @@ import Card from "./_Card.jsx";
 import Container from "./_Container.jsx";
 
 const DirectoryWrapper = styled.div`
-  border-radius: var(--corner-xs);
+  border-radius: var(--corner-sm);
   contain: paint;
   margin-block-end: calc(var(--corner-sm) * -1);
   margin-inline: calc(var(--corner-sm) * -1);
@@ -21,6 +21,7 @@ const Directory = styled.output`
   background-color: var(--background);
   color: white;
   display: flex;
+  align-items: center;
   gap: 0.25em;
   margin-block-end: 1px;
   padding: var(--corner-sm);
@@ -28,6 +29,7 @@ const Directory = styled.output`
 
 const FilePath = styled.div`
   direction: rtl;
+  font-family: var(--font-custom--path), var(--font-system--mono);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -35,6 +37,8 @@ const FilePath = styled.div`
 
 const Truncate = styled.span`
   direction: ltr; /* Correct the text direction */
+  font-size: calc(var(--font-size) / var(--type-scale));
+  letter-spacing: -0.075ch;
   unicode-bidi: bidi-override;
 `;
 
@@ -60,7 +64,7 @@ function FileStatus({ directoryStatus }) {
               <Directory
                 key={directory}
                 style={{ "--background": status === "found" ? "var(--green-600)" : "var(--red-600)" }}>
-                <span className='fa-layers fa-fw fa-lg' style={{ marginTop: ".125em" }}>
+                <span className='fa-layers fa-lg' style={{ marginBlockStart: ".125em", flexShrink: 0 }}>
                   <FontAwesomeIcon icon={icon({ name: "folder", style: "solid" })} />
                   {status === "found" ? (
                     <FontAwesomeIcon
@@ -82,7 +86,7 @@ function FileStatus({ directoryStatus }) {
                 </FilePath>
 
                 {status !== "found" && (
-                  <button onClick={() => selectDirectory(directory)}>
+                  <button onClick={() => selectDirectory(directory)} style={{ marginInlineStart: ".25em" }}>
                     Find
                     <FontAwesomeIcon icon={icon({ name: "search", style: "regular" })} size='sm' />
                   </button>

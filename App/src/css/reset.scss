@@ -28,7 +28,7 @@ html {
 /* This sets the base typography for the body element */
 body {
   font-size: var(--font-size);
-  font-family: var(--font-custom--base), var(--font-system--mono);
+  font-family: var(--font-custom--base), var(--font-system--base);
   line-height: var(--line-height-base);
   margin: unset;
   -webkit-text-size-adjust: 100%; /* Prevents text size adjustments in mobile browsers */
@@ -44,7 +44,7 @@ img {
 /* Set font family for code-like elements */
 /* This sets a monospace font for elements that typically display code */
 :is(code, .code, kbd, .kbd, samp, .samp, pre, .pre, .monospace) {
-  font-family: var(--font-custom--mono), var(--font-system--base);
+  font-family: var(--font-custom--mono), var(--font-system--mono);
 }
 
 /* Set font family, weight, and line height for heading elements */

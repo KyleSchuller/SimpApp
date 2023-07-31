@@ -7,7 +7,7 @@ import FileStatus from "./components/FileStatus.jsx";
 import Options from "./components/Options.jsx";
 import Footer from "./components/Footer.jsx";
 
-import getDirectories from "./js/getDirectories.js";
+import { getDirectories, getFiles } from "./js/getDirectories.js";
 
 const StyledMain = styled.main`
   background-color: #d6d3d1;
@@ -24,12 +24,21 @@ function App() {
     async function initializeDirectoryStatus() {
       const { home, documents } = await window.electron.getPaths();
       const operatingSystem = (await window.electron.getPlatform()) === "darwin" ? "mac" : "windows";
+
       const DIRECTORIES = getDirectories(home, documents, operatingSystem);
+      const FILES = getFiles(home, documents, operatingSystem);
 
       const initialDirectoryStatus = {};
+
       for (const paths of Object.values(DIRECTORIES)) {
         for (const directoryPath of paths) {
           initialDirectoryStatus[directoryPath] = "checking";
+        }
+      }
+
+      for (const [fileType, paths] of Object.entries(FILES)) {
+        for (const filePath of paths) {
+          initialDirectoryStatus[filePath] = "checking";
         }
       }
 
@@ -50,6 +59,16 @@ function App() {
     }
 
     window.electron.on("directory-status", handleDirectoryStatusChange);
+
+    function handleFileStatusChange(status) {
+      console.log(`Received file-status event for ${status.file} with status ${status.status}`);
+      setDirectoryStatus((prevStatus) => ({
+        ...prevStatus,
+        [status.file]: { path: status.filePath, status: status.status },
+      }));
+    }
+
+    window.electron.on("file-status", handleFileStatusChange);
 
     // Clean up the event listener when the component unmounts
     return () => {
