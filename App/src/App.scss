@@ -9,3 +9,81 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
 }
+
+.custom-tippy {
+  --color: var(--stone-700);
+
+  text-align: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  background-color: var(--color);
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: var(--color);
+  }
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: var(--color);
+  }
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: var(--color);
+  }
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: var(--color);
+  }
+
+  &.missing {
+    --color: var(--red-700);
+
+    background-color: var(--color);
+
+    &[data-placement^="top"] > .tippy-arrow::before {
+      border-top-color: var(--color);
+    }
+    &[data-placement^="bottom"] > .tippy-arrow::before {
+      border-bottom-color: var(--color);
+    }
+    &[data-placement^="left"] > .tippy-arrow::before {
+      border-left-color: var(--color);
+    }
+    &[data-placement^="right"] > .tippy-arrow::before {
+      border-right-color: var(--color);
+    }
+  }
+  &.located {
+    --color: var(--green-700);
+
+    background-color: var(--color);
+
+    &[data-placement^="top"] > .tippy-arrow::before {
+      border-top-color: var(--color);
+    }
+    &[data-placement^="bottom"] > .tippy-arrow::before {
+      border-bottom-color: var(--color);
+    }
+    &[data-placement^="left"] > .tippy-arrow::before {
+      border-left-color: var(--color);
+    }
+    &[data-placement^="right"] > .tippy-arrow::before {
+      border-right-color: var(--color);
+    }
+  }
+  &.watched {
+    --color: var(--blue-700);
+
+    background-color: var(--color);
+
+    &[data-placement^="top"] > .tippy-arrow::before {
+      border-top-color: var(--color);
+    }
+    &[data-placement^="bottom"] > .tippy-arrow::before {
+      border-bottom-color: var(--color);
+    }
+    &[data-placement^="left"] > .tippy-arrow::before {
+      border-left-color: var(--color);
+    }
+    &[data-placement^="right"] > .tippy-arrow::before {
+      border-right-color: var(--color);
+    }
+  }
+}

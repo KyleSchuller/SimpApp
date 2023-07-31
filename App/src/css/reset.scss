@@ -126,6 +126,10 @@ img {
   margin-block: unset;
 }
 
+:is(strong, .strong, b, .bold) {
+  font-weight: bolder;
+}
+
 :is(p):not(:last-child) {
   margin-block-end: 1em;
 }

@@ -1,10 +1,15 @@
-:where(.btn, button, [role="button"], [type="button"], [type="submit"], [type="reset"]) {
-  border: 1px solid currentColor;
+:is(.btn, button, [role="button"], [type="button"], [type="submit"], [type="reset"]) {
+  outline: 1px solid currentColor;
   border-radius: var(--corner-2xs);
   display: inline-flex;
   gap: 0.375em;
   line-height: 1;
+  margin-block: -1px;
   padding-block: calc(((var(--line-height--base) - 1) / 2) * 1em);
   padding-inline: 0.75em;
   white-space: nowrap;
+}
+
+:is(.btn, button, [role="button"], [type="button"], [type="submit"], [type="reset"]):focus-visible {
+  outline: 2px solid currentColor;
 }

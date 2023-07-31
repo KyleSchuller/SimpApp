@@ -1,10 +1,11 @@
 const { app, dialog, ipcMain, BrowserWindow } = require("electron");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
 import { IS_DEV } from "./CONSTANTS";
 
-let mainWindow; // Keep a global reference to the window object
+let mainWindow;
 
 const createMainWindow = () => {
   mainWindow = new BrowserWindow({
@@ -23,72 +24,37 @@ const createMainWindow = () => {
 
 app.whenReady().then(createMainWindow);
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
+app.on("window-all-closed", () => process.platform !== "darwin" && app.quit());
 
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createMainWindow();
-  }
-});
-
-// Helper function to check if a file or directory exists
-const existsSync = (path) => {
-  try {
-    fs.accessSync(path);
-    return true;
-  } catch {
-    console.log(`Path ${path} does not exist`);
-    return false;
-  }
-};
+app.on("activate", () => BrowserWindow.getAllWindows().length === 0 && createMainWindow());
 
 // Listen for an IPC request from the renderer process
-ipcMain.handle("directory-exists", async (event, directoryPath) => existsSync(directoryPath));
-ipcMain.handle("file-exists", async (event, filePath) => existsSync(filePath));
-
-ipcMain.on("send-directory-status", (event, status) => {
-  mainWindow.webContents.send("directory-status", status);
+ipcMain.on("get-os", (event) => {
+  event.returnValue = process.platform;
+});
+ipcMain.on("get-os-root", (event) => {
+  event.returnValue = path.parse(app.getAppPath()).root;
 });
 
-ipcMain.handle("select-directory", async (event) => {
-  const result = await dialog.showOpenDialog({
-    properties: ["openDirectory"],
-  });
-
-  if (result.canceled) {
-    return null;
-  } else {
-    return result.filePaths[0];
-  }
+ipcMain.on("get-os-path", (event, name) => {
+  event.returnValue = app.getPath(name);
 });
 
-ipcMain.handle("get-paths", (event) => {
-  return {
-    home: app.getPath("home"),
-    documents: app.getPath("documents"),
-    // Add more paths as needed...
-  };
+ipcMain.on("check-file-existence", (event, filePath) => {
+  event.returnValue = fs.existsSync(filePath);
 });
 
-ipcMain.on("get-file-data", async (event, filePath) => {
-  try {
-    // Read the file
-    const data = fs.readFileSync(path.resolve(__dirname, filePath), "utf-8");
-
-    // Send the file status change event
-    event.reply("file-status-change", { filePath, status: "success" });
-
-    // Return the file data
-    event.reply("get-file-data-response", data);
-  } catch (error) {
-    // Send the file status change event
-    event.reply("file-status-change", { filePath, status: "error" });
-
-    console.error("Failed to read file:", error);
-    event.reply("get-file-data-response", error);
-  }
+ipcMain.on("open-file-dialog", (event) => {
+  dialog
+    .showOpenDialog({
+      properties: ["openFile"],
+    })
+    .then((result) => {
+      if (!result.canceled) {
+        event.sender.send("selected-file", result.filePaths[0]);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
