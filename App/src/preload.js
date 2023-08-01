@@ -8,6 +8,7 @@ const api = {
   checkFileExistence: (filePath) => ipcRenderer.sendSync("check-file-existence", filePath),
   openFileDialog: () => ipcRenderer.send("open-file-dialog"),
   onFileDialogResponse: (callback) => ipcRenderer.on("selected-file", callback),
+
   // ...
 };
 

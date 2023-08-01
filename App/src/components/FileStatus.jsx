@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -110,20 +110,20 @@ function FileStatus({ file }) {
     <Tippy
       content={
         fileExists ? (
-          <>
+          <Fragment>
             <span>Found</span>
             <FilePath>
               {fileName}.{fileExtension}
             </FilePath>
-          </>
+          </Fragment>
         ) : (
-          <>
+          <Fragment>
             <strong>ERROR!</strong>
             <FilePath>
               {fileName}.{fileExtension}
             </FilePath>
             <small>Click to select the file</small>
-          </>
+          </Fragment>
         )
       }
       className={fileExists ? "custom-tippy located" : "custom-tippy missing"}>
