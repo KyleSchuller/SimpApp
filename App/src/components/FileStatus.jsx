@@ -2,10 +2,10 @@ import React, { Fragment, useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css"; // optional for styling
+import "tippy.js/dist/tippy.css";
 
 const pulse = keyframes`
   0% {

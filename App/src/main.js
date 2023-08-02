@@ -3,6 +3,8 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
+const replace = require("replace-in-file");
+
 import { IS_DEV } from "./CONSTANTS";
 
 let mainWindow;
@@ -56,5 +58,34 @@ ipcMain.on("open-file-dialog", (event) => {
     })
     .catch((err) => {
       console.log(err);
+    });
+});
+
+ipcMain.on("replace-value-in-file", (event, fields, value) => {
+  const options = fields.map(({ option, setting, name, file }) => {
+    let from;
+    if (option && setting) {
+      from = new RegExp(`(option ${option}\\s+setting ${setting}([\\s\\S]*?)${name}.*$)`, "m");
+    } else if (option) {
+      from = new RegExp(`(option ${option}([\\s\\S]*?)${name}.*$)`, "m");
+    } else {
+      from = new RegExp(`^${name}.*$`, "m");
+    }
+
+    return {
+      files: file,
+      from,
+      to: `${name} = ${value}`,
+    };
+  });
+
+  Promise.all(options.map((option) => replace(option)))
+    .then((results) => {
+      console.log("Replacement results:", results);
+      event.returnValue = true;
+    })
+    .catch((error) => {
+      console.error("Error occurred:", error);
+      event.returnValue = false;
     });
 });

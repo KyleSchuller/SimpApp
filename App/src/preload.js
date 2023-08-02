@@ -9,6 +9,8 @@ const api = {
   openFileDialog: () => ipcRenderer.send("open-file-dialog"),
   onFileDialogResponse: (callback) => ipcRenderer.on("selected-file", callback),
 
+  replaceValueInFile: (fields, value) => ipcRenderer.sendSync("replace-value-in-file", fields, value),
+
   // ...
 };
 
