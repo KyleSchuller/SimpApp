@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Card from "./_Card.jsx";
 import Container from "./_Container.jsx";
 
 import OptionField from "./OptionField.jsx";
 
+import FilePathContext from "../context/FilePaths.js";
+
 function Options() {
+  const { filePaths } = useContext(FilePathContext);
+
   return (
     <section>
       <Container>
@@ -18,10 +22,30 @@ function Options() {
             label='Frame Rate Limit'
             description='Control the FPS (frames per second)'
             fields={[
-              { option: "FrameRateLimit", name: "integer", file: "Ts4CommonRules.sgr" },
-              { option: "FrameRateLimit", name: "prop $ConfigGroup FrameRateLimit", file: "Ts4CommonRules.sgr" },
-              { name: "setOption FrameRateLimit", file: "Ts4CommonRules.sgr" },
-              { name: "frameratelimit", file: "Options.ini" },
+              {
+                name: "option FrameRateLimit\\s+integer\\s+\\d+",
+                replace: "\\d+",
+                file: filePaths["Ts4CommonRules.sgr"],
+                isRegex: true,
+              },
+              {
+                name: "prop \\$ConfigGroup FrameRateLimit\\s+\\d+",
+                replace: "\\d+",
+                file: filePaths["Ts4CommonRules.sgr"],
+                isRegex: true,
+              },
+              {
+                name: "setOption FrameRateLimit = \\d+",
+                replace: "\\d+",
+                file: filePaths["Ts4CommonRules.sgr"],
+                isRegex: true,
+              },
+              {
+                name: "frameratelimit = \\d+",
+                replace: "\\d+",
+                file: filePaths["Options.ini"],
+                isRegex: true,
+              },
             ]}
             type='range'
             min={12}

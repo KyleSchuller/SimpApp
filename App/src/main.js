@@ -3,7 +3,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
-const replace = require("replace-in-file");
+const replaceInFile = require("replace-in-file");
 
 import { IS_DEV } from "./CONSTANTS";
 
@@ -61,31 +61,31 @@ ipcMain.on("open-file-dialog", (event) => {
     });
 });
 
-ipcMain.on("replace-value-in-file", (event, fields, value) => {
-  const options = fields.map(({ option, setting, name, file }) => {
-    let from;
-    if (option && setting) {
-      from = new RegExp(`(option ${option}\\s+setting ${setting}([\\s\\S]*?)${name}.*$)`, "m");
-    } else if (option) {
-      from = new RegExp(`(option ${option}([\\s\\S]*?)${name}.*$)`, "m");
-    } else {
-      from = new RegExp(`^${name}.*$`, "m");
+ipcMain.on("replace-value-in-file", async (event, fields, value) => {
+  try {
+    for (let i = 0; i < fields.length; i++) {
+      const { name, replace, file, isRegex } = fields[i];
+      let from;
+      if (isRegex) {
+        from = new RegExp(`${name}`);
+      } else {
+        from = new RegExp(`(${name})(\\d+)`, "m");
+      }
+
+      const to = (match) => match.replace(new RegExp(replace), value);
+
+      const option = {
+        files: file,
+        from,
+        to,
+      };
+
+      const result = await replaceInFile(option);
+      console.log("Replacement result:", result);
     }
-
-    return {
-      files: file,
-      from,
-      to: `${name} = ${value}`,
-    };
-  });
-
-  Promise.all(options.map((option) => replace(option)))
-    .then((results) => {
-      console.log("Replacement results:", results);
-      event.returnValue = true;
-    })
-    .catch((error) => {
-      console.error("Error occurred:", error);
-      event.returnValue = false;
-    });
+    event.returnValue = true;
+  } catch (error) {
+    console.error("Error occurred:", error);
+    event.returnValue = false;
+  }
 });

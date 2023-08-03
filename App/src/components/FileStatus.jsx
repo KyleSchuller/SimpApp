@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,8 @@ import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawe
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+
+import FilePathContext from "../context/FilePaths.js";
 
 const pulse = keyframes`
   0% {
@@ -79,6 +81,8 @@ const FilePath = styled.div`
 function FileStatus({ file }) {
   const [fileExists, setFileExists] = useState(false);
   const [foundFilePath, setFoundFilePath] = useState("");
+  const { setFilePaths } = useContext(FilePathContext);
+
   const os = window.electron.getOS();
   const rootDir = window.electron.getOSRoot();
   const homeDir = window.electron.getOSPath("home");
@@ -94,6 +98,9 @@ function FileStatus({ file }) {
     }
     setFoundFilePath(filePath);
     setFileExists(window.electron.checkFileExistence(filePath));
+
+    // Update the file paths in the context
+    setFilePaths((prevPaths) => ({ ...prevPaths, [file.name]: filePath }));
   }, [file, os, rootDir, homeDir, documentsDir]);
 
   const handleOpenFileDialog = () => {
