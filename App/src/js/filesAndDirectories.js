@@ -10,7 +10,7 @@ const RESOURCES_PATH = "Resources";
 const RES_PATH = "res";
 
 // Define common files
-const GRAPHICS_RULES = "GraphicsRules1.sgr";
+const GRAPHICS_RULES = "GraphicsRules.sgr";
 const TS4_COMMON_RULES = "Ts4CommonRules.sgr";
 const DEFAULT_INI = "Default.ini";
 const CAMERA_INI = "Camera.ini";
