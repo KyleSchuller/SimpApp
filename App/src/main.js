@@ -62,26 +62,26 @@ ipcMain.on("open-file-dialog", (event) => {
 });
 
 ipcMain.on("replace-value-in-file", async (event, fields, value) => {
+  function groupBy(array, key) {
+    return array.reduce((result, currentValue) => {
+      (result[currentValue[key]] = result[currentValue[key]] || []).push(currentValue);
+      return result;
+    }, {});
+  }
+
   try {
-    for (let i = 0; i < fields.length; i++) {
-      const { name, replace, file, isRegex } = fields[i];
-      let from;
-      if (isRegex) {
-        from = new RegExp(`${name}`);
-      } else {
-        from = new RegExp(`(${name})(\\d+)`, "m");
+    const groupedByFile = groupBy(fields, "file");
+    for (let file in groupedByFile) {
+      const fileFields = groupedByFile[file];
+      let fileContent = await fs.promises.readFile(file, "utf-8");
+
+      for (let i = 0; i < fileFields.length; i++) {
+        const { name, replace } = fileFields[i];
+        const from = new RegExp(`${name}`);
+        const to = (match) => match.replace(new RegExp(replace), value);
+        fileContent = fileContent.replace(from, to);
       }
-
-      const to = (match) => match.replace(new RegExp(replace), value);
-
-      const option = {
-        files: file,
-        from,
-        to,
-      };
-
-      const result = await replaceInFile(option);
-      console.log("Replacement result:", result);
+      await fs.promises.writeFile(file, fileContent);
     }
     event.returnValue = true;
   } catch (error) {

@@ -11,13 +11,15 @@
 }
 
 .custom-tippy {
-  --color: var(--stone-700);
+  --color: var(--body-color);
 
   text-align: center;
   overflow-wrap: break-word;
   word-break: break-word;
 
   background-color: var(--color);
+
+  transition: inline-size var(--transition-xs) var(--in-delay) var(--in-function);
 
   &[data-placement^="top"] > .tippy-arrow::before {
     border-top-color: var(--color);

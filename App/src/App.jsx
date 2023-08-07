@@ -2,6 +2,8 @@ import React, { StrictMode, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import styled from "styled-components";
 
+import Tippy, { useSingleton } from "@tippyjs/react";
+
 import { filesAndDirectories } from "./js/filesAndDirectories";
 
 import Header from "./components/Header.jsx";
@@ -29,6 +31,7 @@ const FileStatusWrapper = styled.div`
 
 function App() {
   const [filePaths, setFilePaths] = useState({});
+  const [source, target] = useSingleton();
 
   return (
     <StrictMode>
@@ -39,11 +42,18 @@ function App() {
             <Container>
               <Card>
                 <h2>File Status</h2>
-                <FileStatusWrapper>
-                  {filesAndDirectories.map((file) => (
-                    <FileStatus key={file.name} file={file} />
-                  ))}
-                </FileStatusWrapper>
+                <Tippy
+                  singleton={source}
+                  delay={[null, 128]}
+                  moveTransition='transform var(--transition-xs) var(--in-delay) var(--in-function)'
+                  className='custom-tippy'
+                  hideOnClick={false}>
+                  <FileStatusWrapper>
+                    {filesAndDirectories.map((file) => (
+                      <FileStatus key={file.name} file={file} singleton={target} />
+                    ))}
+                  </FileStatusWrapper>
+                </Tippy>
               </Card>
             </Container>
           </section>

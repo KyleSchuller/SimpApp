@@ -4,8 +4,8 @@ import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
+import Tippy, { useSingleton } from "@tippyjs/react";
+import { followCursor } from "tippy.js";
 
 import FilePathContext from "../context/FilePaths.js";
 
@@ -67,7 +67,6 @@ const FileOutput = styled.button`
     animation-timing-function: var(--out-function);
   }
 `;
-
 const FileExtension = styled.span`
   font-weight: 700;
   line-height: 1;
@@ -78,7 +77,7 @@ const FilePath = styled.div`
   font-weight: 600;
 `;
 
-function FileStatus({ file }) {
+function FileStatus({ file, singleton }) {
   const [fileExists, setFileExists] = useState(false);
   const [foundFilePath, setFoundFilePath] = useState("");
   const { setFilePaths } = useContext(FilePathContext);
@@ -115,6 +114,7 @@ function FileStatus({ file }) {
 
   return (
     <Tippy
+      singleton={singleton}
       content={
         fileExists ? (
           <Fragment>
@@ -132,8 +132,7 @@ function FileStatus({ file }) {
             <small>Click to select the file</small>
           </Fragment>
         )
-      }
-      className={fileExists ? "custom-tippy located" : "custom-tippy missing"}>
+      }>
       <FileOutput
         $color={fileExists ? "var(--green-700)" : "var(--red-700)"}
         onClick={fileExists ? void 0 : handleOpenFileDialog}
