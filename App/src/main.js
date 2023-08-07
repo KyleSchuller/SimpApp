@@ -1,9 +1,6 @@
 const { app, dialog, ipcMain, BrowserWindow } = require("electron");
 const fs = require("fs");
-const os = require("os");
 const path = require("path");
-
-const replaceInFile = require("replace-in-file");
 
 import { IS_DEV } from "./CONSTANTS";
 
