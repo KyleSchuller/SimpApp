@@ -93,7 +93,7 @@ const NotchLabel = styled.div`
 
 const CustomReactSlider = ({ value, setValue, tooltipPrefix, tooltipSuffix, ...props }) => {
   const handleNotchClick = (notchValue) => {
-    setValue(notchValue);
+    props.onChange && props.onChange(notchValue);
   };
 
   const Thumb = (props, state) => (
