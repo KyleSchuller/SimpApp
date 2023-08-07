@@ -26,6 +26,7 @@ function Options() {
           <h2>Game Options</h2>
           <p>Interacting with the options below will update the values directly in the game files.</p>
           <OptionField
+            id='frameRateLimit'
             label='Frame Rate Limit'
             description='Define the frame rate limit in frames per second (FPS). Higher values will negatively impact performance.'
             tooltipSuffix={<Affix> FPS</Affix>}

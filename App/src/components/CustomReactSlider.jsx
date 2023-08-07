@@ -91,13 +91,14 @@ const NotchLabel = styled.div`
   cursor: pointer;
 `;
 
-const CustomReactSlider = ({ value, setValue, tooltipPrefix, tooltipSuffix, ...props }) => {
+const CustomReactSlider = ({ id, value, setValue, tooltipPrefix, tooltipSuffix, ...props }) => {
   const handleNotchClick = (notchValue) => {
     props.onChange && props.onChange(notchValue);
   };
 
   const Thumb = (props, state) => (
     <Tippy
+      key={`${id}-tippy`}
       content={
         <Fragment>
           {tooltipPrefix && tooltipPrefix}
@@ -111,7 +112,7 @@ const CustomReactSlider = ({ value, setValue, tooltipPrefix, tooltipSuffix, ...p
       offset={[0, 5]}
       animateFill
       plugins={[animateFill]}>
-      <StyledThumb {...props}>
+      <StyledThumb {...props} key={`${id}-thumb`}>
         <span>{state.valueNow}</span>
       </StyledThumb>
     </Tippy>

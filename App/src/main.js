@@ -1,6 +1,7 @@
-const { app, dialog, ipcMain, BrowserWindow } = require("electron");
-const fs = require("fs");
+const { app, dialog, ipcMain, BrowserWindow, session } = require("electron");
 const path = require("path");
+const os = require("os");
+const fs = require("fs");
 
 import { IS_DEV } from "./CONSTANTS";
 
