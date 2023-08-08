@@ -4,8 +4,7 @@ import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
-import Tippy, { useSingleton } from "@tippyjs/react";
-import { followCursor } from "tippy.js";
+import Tippy from "@tippyjs/react";
 
 import FilePathContext from "../context/FilePaths.js";
 

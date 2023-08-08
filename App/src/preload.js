@@ -1,6 +1,9 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 const api = {
+  requestAllSystemInfo: () => ipcRenderer.send("request-all-system-info"),
+  onAllSystemInfoResponse: (callback) => ipcRenderer.on("all-system-info", callback),
+
   getOS: () => ipcRenderer.sendSync("get-os"),
   getOSRoot: () => ipcRenderer.sendSync("get-os-root"),
   getOSPath: (name) => ipcRenderer.sendSync("get-os-path", name),

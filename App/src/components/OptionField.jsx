@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import styled, { keyframes } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -9,14 +9,12 @@ import Tippy from "@tippyjs/react";
 import CustomReactSlider from "./CustomReactSlider.jsx";
 
 const FormGroup = styled.div`
-  display: grid;
-  gap: 0.25em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 0.5em;
 
   & *:not(:last-child) {
     margin-block-end: unset;
-  }
-  & label {
-    margin-inline-end: auto;
   }
 `;
 
@@ -24,8 +22,9 @@ const OptionField = ({
   fields,
   label,
   description,
+  extraDetails,
   tooltipPrefix,
-  tooltipSuffix,
+  valueSuffix,
   notches,
   id = Math.random().toString(36).substring(7),
   ...props
@@ -42,17 +41,20 @@ const OptionField = ({
       <label id={id} className='h5'>
         {label}
       </label>
+      <Tippy key={`${id}-extraTippy`} content={extraDetails} className='custom-tippy'>
+        <FontAwesomeIcon icon={icon({ name: "info-circle", style: "solid" })} style={{ marginBlock: "auto" }} />
+      </Tippy>
       <p>{description}</p>
       <CustomReactSlider
         ariaLabelledby={id}
         onChange={handleChange}
-        value={sliderValue} // Pass the sliderValue as a prop
-        setValue={setSliderValue} // Pass the setSliderValue function as a prop
+        value={sliderValue}
+        setValue={setSliderValue}
         min={props.min}
         max={props.max}
         defaultValue={props.defaultValue}
         tooltipPrefix={tooltipPrefix}
-        tooltipSuffix={tooltipSuffix}
+        valueSuffix={valueSuffix}
         notches={notches}
       />
     </FormGroup>

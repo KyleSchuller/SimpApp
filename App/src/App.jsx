@@ -32,6 +32,17 @@ const FileStatusWrapper = styled.div`
 function App() {
   const [filePaths, setFilePaths] = useState({});
   const [source, target] = useSingleton();
+  const [systemInfo, setSystemInfo] = useState(null);
+
+  useEffect(() => {
+    // Request system information when the component mounts
+    window.electron.requestAllSystemInfo();
+
+    // Listen for the response from the main process
+    window.electron.onAllSystemInfoResponse((event, data) => {
+      setSystemInfo(data);
+    });
+  }, []);
 
   return (
     <StrictMode>
@@ -57,7 +68,7 @@ function App() {
               </Card>
             </Container>
           </section>
-          <Options />
+          <Options systemInfo={systemInfo} />
         </StyledMain>
         <Footer />
       </FilePathProvider>

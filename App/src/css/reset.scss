@@ -29,7 +29,7 @@ html {
 body {
   font-size: var(--font-size);
   font-family: var(--font-custom--base), var(--font-system--base);
-  line-height: var(--line-height-base);
+  line-height: calc(var(--line-height-base) - 0.3vw);
   margin: unset;
   -webkit-text-size-adjust: 100%; /* Prevents text size adjustments in mobile browsers */
 }
@@ -52,7 +52,7 @@ img {
 :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
   font-family: var(--font-custom--head), var(--font-system--base);
   font-weight: bolder;
-  line-height: var(--line-height--head);
+  line-height: calc(var(--line-height--head) - 0.3vw);
   margin-block: unset;
 }
 :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6):not(:last-child) {

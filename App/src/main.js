@@ -2,6 +2,7 @@ const { app, dialog, ipcMain, BrowserWindow, session } = require("electron");
 const path = require("path");
 const os = require("os");
 const fs = require("fs");
+const si = require("systeminformation");
 
 import { IS_DEV } from "./CONSTANTS";
 
@@ -29,6 +30,28 @@ app.on("window-all-closed", () => process.platform !== "darwin" && app.quit());
 app.on("activate", () => BrowserWindow.getAllWindows().length === 0 && createMainWindow());
 
 // Listen for an IPC request from the renderer process
+ipcMain.on("request-all-system-info", async (event) => {
+  try {
+    const cpuData = await si.cpu();
+    const graphicsData = await si.graphics();
+    const osData = await si.osInfo();
+    const systemData = await si.system();
+    // Add more information as needed
+
+    const allSystemInfo = {
+      cpuData,
+      graphicsData,
+      osData,
+      systemData,
+      // ...
+    };
+
+    event.sender.send("all-system-info", allSystemInfo);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 ipcMain.on("get-os", (event) => {
   event.returnValue = process.platform;
 });

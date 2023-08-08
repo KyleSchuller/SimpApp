@@ -7,6 +7,7 @@ import "tippy.js/dist/backdrop.css";
 import "tippy.js/animations/shift-away.css";
 
 const SliderContainer = styled.div`
+  --notch-size: 1rem;
   --thumb-size: 1.75rem;
   --track-offset: 0.375rem;
 
@@ -76,22 +77,24 @@ const CurrentValue = styled.span`
 
 const Notch = styled.div`
   position: absolute;
-  width: 0.125em;
-  height: 0.5em;
-  background-color: #000;
-  transform: translateX(-50%);
+  block-size: var(--notch-size);
+  inline-size: var(--notch-size);
+  border-radius: calc(var(--notch-size) / 2);
+  outline: 0.25rem solid var(--body-contrast);
+  outline-offset: calc((var(--notch-size) / 2) * -1);
+  transform: translateX(-50%) translateY(calc(((var(--thumb-size) / 2) + (var(--notch-size) / 2)) * -1));
   cursor: pointer;
 `;
 
 const NotchLabel = styled.div`
   position: absolute;
-  transform: translateX(-50%) translateY(50%);
+  transform: translateX(-50%);
   font-size: 0.8rem;
   white-space: nowrap;
   cursor: pointer;
 `;
 
-const CustomReactSlider = ({ id, value, setValue, tooltipPrefix, tooltipSuffix, ...props }) => {
+const CustomReactSlider = ({ id, value, setValue, tooltipPrefix, valueSuffix, ...props }) => {
   const handleNotchClick = (notchValue) => {
     props.onChange && props.onChange(notchValue);
   };
@@ -103,7 +106,7 @@ const CustomReactSlider = ({ id, value, setValue, tooltipPrefix, tooltipSuffix, 
         <Fragment>
           {tooltipPrefix && tooltipPrefix}
           <CurrentValue>{state.valueNow}</CurrentValue>
-          {tooltipSuffix && tooltipSuffix}
+          {valueSuffix && valueSuffix}
         </Fragment>
       }
       className='custom-tippy'
