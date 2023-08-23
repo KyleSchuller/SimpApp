@@ -132,21 +132,11 @@ function FileStatus({ file, singleton }) {
           </Fragment>
         )
       }>
-      <FileOutput
-        $color={fileExists ? "var(--green-700)" : "var(--red-700)"}
-        onClick={fileExists ? void 0 : handleOpenFileDialog}
-        className={fileExists ? void 0 : "error"}
-        tabIndex={fileExists ? -1 : 1}
-        aria-label={fileExists ? void 0 : `Browse your system for ${fileName}.${fileExtension}`}
-        role={fileExists ? "presentation" : "button"}>
+      <FileOutput $color={fileExists ? "var(--green-700)" : "var(--red-700)"} onClick={fileExists ? void 0 : handleOpenFileDialog} className={fileExists ? void 0 : "error"} tabIndex={fileExists ? -1 : 1} aria-label={fileExists ? void 0 : `Browse your system for ${fileName}.${fileExtension}`} role={fileExists ? "presentation" : "button"}>
         <div className='icon-stack'>
           <FontAwesomeIcon className='page-icon' icon={icon({ name: "page", style: "solid" })} inverse />
           <FontAwesomeIcon className='page-icon' icon={icon({ name: "page", style: "thin" })} />
-          {fileExists ? (
-            <FontAwesomeIcon className='state-icon' icon={icon({ name: "check", style: "solid" })} />
-          ) : (
-            <FontAwesomeIcon className='state-icon' icon={icon({ name: "xmark", style: "solid" })} />
-          )}
+          {fileExists ? <FontAwesomeIcon className='state-icon' icon={icon({ name: "check", style: "solid" })} /> : <FontAwesomeIcon className='state-icon' icon={icon({ name: "xmark", style: "solid" })} />}
           <FileExtension className='state-text'>{fileExtension}</FileExtension>
         </div>
       </FileOutput>

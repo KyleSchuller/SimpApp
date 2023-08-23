@@ -4,7 +4,7 @@ const os = require("os");
 const fs = require("fs");
 const si = require("systeminformation");
 
-import { IS_DEV } from "./CONSTANTS";
+import { IS_DEV } from "../shared/CONSTANTS";
 
 let mainWindow;
 

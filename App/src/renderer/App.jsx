@@ -4,26 +4,18 @@ import styled from "styled-components";
 
 import Tippy, { useSingleton } from "@tippyjs/react";
 
-import { filesAndDirectories } from "./js/filesAndDirectories";
+import { filesAndDirectories } from "../shared/filesAndDirectories";
 
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
+import AppWrapper from "./components/App/Wrapper.jsx";
 
-import Card from "./components/_Card.jsx";
-import Container from "./components/_Container.jsx";
+import Card from "./components/Common/Card.jsx";
+import Container from "./components/Common/Container.jsx";
 
 import FileStatus from "./components/FileStatus.jsx";
-import Options from "./components/Options.jsx";
+import Options from "./components/Options/Options.jsx";
 
 import { FilePathProvider } from "./context/FilePaths.js";
 
-const StyledMain = styled.main`
-  background-color: #d6d3d1;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  padding-block: 1em;
-`;
 const FileStatusWrapper = styled.div`
   display: flex;
   gap: 0.5em;
@@ -47,18 +39,12 @@ function App() {
   return (
     <StrictMode>
       <FilePathProvider value={{ filePaths, setFilePaths }}>
-        <Header />
-        <StyledMain>
+        <AppWrapper>
           <section>
             <Container>
               <Card>
                 <h2>File Status</h2>
-                <Tippy
-                  singleton={source}
-                  delay={[null, 128]}
-                  moveTransition='transform var(--transition-xs) var(--in-delay) var(--in-function)'
-                  className='custom-tippy'
-                  hideOnClick={false}>
+                <Tippy singleton={source} delay={[null, 128]} moveTransition='transform var(--transition-xs) var(--in-delay) var(--in-function)' className='custom-tippy' hideOnClick={false}>
                   <FileStatusWrapper>
                     {filesAndDirectories.map((file) => (
                       <FileStatus key={file.name} file={file} singleton={target} />
@@ -69,8 +55,7 @@ function App() {
             </Container>
           </section>
           <Options systemInfo={systemInfo} />
-        </StyledMain>
-        <Footer />
+        </AppWrapper>
       </FilePathProvider>
     </StrictMode>
   );

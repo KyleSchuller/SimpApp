@@ -1,5 +1,3 @@
-import path from "path";
-
 import "./App.scss";
 import "./App.jsx";
 

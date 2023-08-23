@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-import Container from "./_Container.jsx";
-import Flexbox from "./_Flexbox.jsx";
-import Logo from "./_Logo.jsx";
+import Container from "../Common/Container.jsx";
+import Flexbox from "../Common/Flexbox.jsx";
+import Logo from "./Logo.jsx";
 
 const StyledFooter = styled.footer`
-  background-color: #18181b;
+  background-color: var(--stone-950);
   color: white;
   text-align: center;
 `;
 
-function Footer() {
+function Foot() {
   return (
     <StyledFooter>
       <Container $padding='1em'>
@@ -26,4 +26,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default Foot;

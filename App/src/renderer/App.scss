@@ -1,11 +1,13 @@
-@use "./css/root";
-@use "./css/reset";
-@use "./css/utils";
+@use "./assets/styles/root";
+@use "./assets/styles/reset";
+@use "./assets/styles/utils";
 
-@use "./css/_button";
+@use "./assets/styles/_button";
 
 #root {
+  background-color: var(--stone-100);
   display: grid;
+  gap: 1em;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
 }
