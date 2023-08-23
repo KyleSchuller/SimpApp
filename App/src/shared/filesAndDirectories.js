@@ -17,66 +17,31 @@ const CAMERA_INI = "Camera.ini";
 const VIDEO_CAMERA_INI = "VideoCamera.ini";
 const OPTIONS_INI = "Options.ini";
 
+const generatePaths = (fileName, resPath = RESOURCES_PATH) => ({
+  windows: [`${EA_PATH_WINDOWS}${resPath}\\${fileName}`, `${ORIGIN_PATH_WINDOWS}${resPath}\\${fileName}`, `${STEAM_PATH_WINDOWS}${resPath}\\${fileName}`, `${CD_PATH_WINDOWS}${resPath}\\${fileName}`],
+  mac: [`${MAC_PATH}${resPath}/${fileName}`],
+});
+
 export const filesAndDirectories = [
   {
     name: GRAPHICS_RULES,
-    paths: {
-      windows: [
-        `${EA_PATH_WINDOWS}${RESOURCES_PATH}\\${GRAPHICS_RULES}`,
-        `${ORIGIN_PATH_WINDOWS}${RESOURCES_PATH}\\${GRAPHICS_RULES}`,
-        `${STEAM_PATH_WINDOWS}${RESOURCES_PATH}\\${GRAPHICS_RULES}`,
-        `${CD_PATH_WINDOWS}${RESOURCES_PATH}\\${GRAPHICS_RULES}`,
-      ],
-      mac: [`${MAC_PATH}${RESOURCES_PATH}/${GRAPHICS_RULES}`],
-    },
+    paths: generatePaths(GRAPHICS_RULES),
   },
   {
     name: TS4_COMMON_RULES,
-    paths: {
-      windows: [
-        `${EA_PATH_WINDOWS}${RESOURCES_PATH}\\${TS4_COMMON_RULES}`,
-        `${ORIGIN_PATH_WINDOWS}${RESOURCES_PATH}\\${TS4_COMMON_RULES}`,
-        `${STEAM_PATH_WINDOWS}${RESOURCES_PATH}\\${TS4_COMMON_RULES}`,
-        `${CD_PATH_WINDOWS}${RESOURCES_PATH}\\${TS4_COMMON_RULES}`,
-      ],
-      mac: [`${MAC_PATH}${RESOURCES_PATH}/${TS4_COMMON_RULES}`],
-    },
+    paths: generatePaths(TS4_COMMON_RULES),
   },
   {
     name: DEFAULT_INI,
-    paths: {
-      windows: [
-        `${EA_PATH_WINDOWS}${RESOURCES_PATH}\\${DEFAULT_INI}`,
-        `${ORIGIN_PATH_WINDOWS}${RESOURCES_PATH}\\${DEFAULT_INI}`,
-        `${STEAM_PATH_WINDOWS}${RESOURCES_PATH}\\${DEFAULT_INI}`,
-        `${CD_PATH_WINDOWS}${RESOURCES_PATH}\\${DEFAULT_INI}`,
-      ],
-      mac: [`${MAC_PATH}${RESOURCES_PATH}/${DEFAULT_INI}`],
-    },
+    paths: generatePaths(DEFAULT_INI),
   },
   {
     name: CAMERA_INI,
-    paths: {
-      windows: [
-        `${EA_PATH_WINDOWS}${RES_PATH}\\${CAMERA_INI}`,
-        `${ORIGIN_PATH_WINDOWS}${RES_PATH}\\${CAMERA_INI}`,
-        `${STEAM_PATH_WINDOWS}${RES_PATH}\\${CAMERA_INI}`,
-        `${CD_PATH_WINDOWS}${RES_PATH}\\${CAMERA_INI}`,
-      ],
-      mac: [`${MAC_PATH}${RES_PATH}/${CAMERA_INI}`],
-    },
+    paths: generatePaths(CAMERA_INI, RES_PATH),
   },
   {
     name: VIDEO_CAMERA_INI,
-    paths: {
-      windows: [
-        `${EA_PATH_WINDOWS}${RES_PATH}\\${VIDEO_CAMERA_INI}`,
-        `${ORIGIN_PATH_WINDOWS}${RES_PATH}\\${VIDEO_CAMERA_INI}`,
-        `${STEAM_PATH_WINDOWS}${RES_PATH}\\${VIDEO_CAMERA_INI}`,
-        `${CD_PATH_WINDOWS}${RES_PATH}\\${VIDEO_CAMERA_INI}`,
-      ],
-      mac: [`${MAC_PATH}${RES_PATH}/${VIDEO_CAMERA_INI}`],
-    },
+    paths: generatePaths(VIDEO_CAMERA_INI, RES_PATH),
   },
   {
     name: OPTIONS_INI,

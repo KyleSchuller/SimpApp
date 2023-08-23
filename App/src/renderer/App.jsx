@@ -1,29 +1,16 @@
-import React, { StrictMode, useState, useEffect } from "react";
-import { createRoot } from "react-dom/client";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 
-import Tippy, { useSingleton } from "@tippyjs/react";
+import Head from "./components/App/Head.jsx";
+import Main from "./components/App/Main.jsx";
+import Foot from "./components/App/Foot.jsx";
 
-import { filesAndDirectories } from "../shared/filesAndDirectories";
-
-import AppWrapper from "./components/App/Wrapper.jsx";
-
-import Card from "./components/Common/Card.jsx";
-import Container from "./components/Common/Container.jsx";
-
-import FileStatus from "./components/FileStatus.jsx";
+import FileStatus from "./components/FileStatus/Files.jsx";
 import Options from "./components/Options/Options.jsx";
 
-import { FilePathProvider } from "./context/FilePaths.js";
-
-const FileStatusWrapper = styled.div`
-  display: flex;
-  gap: 0.5em;
-`;
+import { FilePathProvider } from "./context/filePaths.js";
 
 function App() {
   const [filePaths, setFilePaths] = useState({});
-  const [source, target] = useSingleton();
   const [systemInfo, setSystemInfo] = useState(null);
 
   useEffect(() => {
@@ -37,28 +24,15 @@ function App() {
   }, []);
 
   return (
-    <StrictMode>
-      <FilePathProvider value={{ filePaths, setFilePaths }}>
-        <AppWrapper>
-          <section>
-            <Container>
-              <Card>
-                <h2>File Status</h2>
-                <Tippy singleton={source} delay={[null, 128]} moveTransition='transform var(--transition-xs) var(--in-delay) var(--in-function)' className='custom-tippy' hideOnClick={false}>
-                  <FileStatusWrapper>
-                    {filesAndDirectories.map((file) => (
-                      <FileStatus key={file.name} file={file} singleton={target} />
-                    ))}
-                  </FileStatusWrapper>
-                </Tippy>
-              </Card>
-            </Container>
-          </section>
-          <Options systemInfo={systemInfo} />
-        </AppWrapper>
-      </FilePathProvider>
-    </StrictMode>
+    <FilePathProvider value={{ filePaths, setFilePaths }}>
+      <Head />
+      <Main>
+        <FileStatus />
+        <Options systemInfo={systemInfo} />
+      </Main>
+      <Foot />
+    </FilePathProvider>
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+export default App;

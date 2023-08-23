@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular, light, thin, duotone, icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import Tippy from "@tippyjs/react";
 
-import CustomReactSlider from "./CustomReactSlider.jsx";
+import CustomReactSlider from "../CustomReactSlider/Slider.jsx";
 
 const FormGroup = styled.div`
   --notch-size: 1rem;
@@ -36,7 +36,7 @@ const FormGroup = styled.div`
   }
 `;
 
-const OptionField = ({ fields, label, description, extraDetails, tooltipPrefix, valueSuffix, notches, id = Math.random().toString(36).substring(7), ...props }) => {
+const OptionField = ({ fields, label, description, extraDetails, tooltipPrefix, valueSuffix, notches, id, ...props }) => {
   // Load initial state from localStorage or set default
   const [sliderValue, setSliderValue] = React.useState(parseInt(localStorage.getItem(id)) || props.defaultValue);
 
